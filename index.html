@@ -53,6 +53,10 @@
   .follow span{font-weight:700}
   .pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--bg);color:var(--ink);padding:8px 14px;border-radius:999px;text-decoration:none;font-weight:600;font-size:.95rem}
   .pill:hover{border-color:var(--moss);color:var(--moss-dark)}
+  .pill.wa{background:#25d366;border-color:#25d366;color:#fff}
+  .pill.wa:hover{background:#1ebe5a;color:#fff}
+  .counter{flex-basis:100%;margin:2px 0 0;color:var(--moss-dark);font-weight:700}
+  .counter.milestone{display:inline-block;flex-basis:auto;background:var(--leaf);border:2px dashed var(--moss);padding:6px 14px;border-radius:999px}
   .empty{border:2px dashed var(--line);border-radius:16px;padding:40px;text-align:center;color:var(--muted)}
 
   .tips{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
@@ -113,7 +117,12 @@
       <p class="lead">Nieuwe beelden van onze wildcamera's verschijnen hier vanzelf. De nieuwste staan bovenaan.</p>
       <div class="follow" id="volg">
         <span>🔔 Volg nieuwe video's:</span>
+        <a class="pill wa" href="https://whatsapp.com/channel/0029VbDvw6e8vd1LlXuKbi1J">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3.9 2.5c.1.2 1.6 2.5 4 3.5 1.5.6 2 .7 2.8.6.4-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.5-.2z"/></svg>
+          Volg op WhatsApp
+        </a>
         <a class="pill" href="feed.xml">RSS-feed</a>
+        <p class="counter" id="counter">🦔 Wees een van de eerste egelvrienden van de Merenwijk!</p>
       </div>
       <div id="videoList" class="videos" aria-live="polite"></div>
     </div>
@@ -205,6 +214,17 @@
       meta.append(h, t); card.append(vid, meta); list.append(card);
     }
   }
+  function counterText(n){
+    if(n >= 100) return ['🎉 Al meer dan ' + (Math.floor(n/50)*50) + ' egelvrienden! Bedankt allemaal!', true];
+    if(n >= 25) return ['🎉 Al ' + n + ' buren volgen de egels van de Merenwijk!', [25,50,75].includes(n)];
+    if(n >= 5) return ['🦔 Al ' + n + ' egelvrienden volgen ons kanaal. Doe jij ook mee?', n === 10];
+    return ['🦔 Wees een van de eerste egelvrienden van de Merenwijk!', false];
+  }
+  fetch('followers.json', {cache:'no-store'}).then(r => r.json()).then(d => {
+    const [t, m] = counterText(Number(d.count) || 0);
+    const el = document.getElementById('counter');
+    el.textContent = t; el.classList.toggle('milestone', m);
+  }).catch(() => {});
   const embedded = window.VIDEOS;
   if(Array.isArray(embedded)) render(embedded);
   else fetch('videos.json', {cache:'no-store'}).then(r => r.json()).then(render).catch(() => render([]));
