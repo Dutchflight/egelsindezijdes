@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Egels in de Zijdes</title>
+<meta name="description" content="Egels in de Zijdes, Leiden: video's van egels in onze tuinen en tips om egels te helpen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f6f1e7; --paper:#fffdf8; --ink:#2b2620; --muted:#6b6257;
+    --moss:#4f6b3a; --moss-dark:#3a5229; --bark:#8a5a35; --leaf:#e3ead2; --line:#e4dccd;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 "Nunito Sans",system-ui,sans-serif}
+  h1,h2,h3{font-family:Fraunces,Georgia,serif;line-height:1.15;margin:0 0 .5em}
+  a{color:var(--moss-dark)}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+
+  header.top{position:sticky;top:0;z-index:5;background:rgba(246,241,231,.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+  header.top .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+  .brand{display:flex;align-items:center;gap:10px;font-family:Fraunces,serif;font-weight:800;font-size:1.15rem;text-decoration:none;color:var(--ink)}
+  nav a{margin-left:18px;text-decoration:none;font-weight:600;color:var(--muted)}
+  nav a:hover{color:var(--moss-dark)}
+  @media(max-width:640px){nav a:not(.keep){display:none}}
+
+  .hero{padding:64px 0 48px}
+  .hero .wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center}
+  .hero h1{font-size:clamp(2.2rem,5vw,3.6rem);font-weight:800;color:var(--moss-dark)}
+  .hero p{font-size:1.15rem;color:var(--muted);max-width:34em}
+  .hero svg{width:100%;height:auto}
+  .btn{display:inline-block;margin-top:12px;background:var(--moss);color:#fff;padding:12px 22px;border-radius:999px;text-decoration:none;font-weight:700}
+  .btn:hover{background:var(--moss-dark)}
+  @media(max-width:760px){.hero .wrap{grid-template-columns:1fr}.hero svg{max-width:320px;margin:0 auto;display:block}}
+
+  section{padding:56px 0}
+  section.alt{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  h2{font-size:clamp(1.7rem,3.5vw,2.3rem)}
+  .lead{color:var(--muted);max-width:40em;margin-bottom:28px}
+
+  .videos{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:22px}
+  .vcard{background:var(--paper);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+  section.alt .vcard{background:var(--bg)}
+  .vcard video{display:block;width:100%;aspect-ratio:16/9;background:#1d1a16;object-fit:contain}
+  .vcard .meta{padding:12px 16px 16px}
+  .vcard h3{font-size:1.1rem;margin:0 0 4px}
+  .vcard time{color:var(--muted);font-size:.9rem}
+  .empty{border:2px dashed var(--line);border-radius:16px;padding:40px;text-align:center;color:var(--muted)}
+
+  .tips{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+  .tip{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:22px}
+  .tip .ic{width:44px;height:44px;border-radius:12px;background:var(--leaf);display:grid;place-items:center;margin-bottom:12px;font-size:1.4rem}
+  .tip h3{font-size:1.15rem}
+  .tip p{margin:0;color:var(--muted)}
+  .no{margin-top:22px;background:#fbeee4;border:1px solid #efd3bf;border-radius:16px;padding:18px 22px}
+  .no strong{color:var(--bark)}
+
+  .alert{display:grid;grid-template-columns:auto 1fr;gap:20px;background:var(--moss-dark);color:#fff;border-radius:20px;padding:28px}
+  .alert h2{color:#fff}
+  .alert p{margin:.3em 0;color:#e8eedd}
+  .alert .big{font-family:Fraunces,serif;font-size:2.6rem;font-weight:800;line-height:1}
+  @media(max-width:600px){.alert{grid-template-columns:1fr}}
+
+  .year{display:grid;grid-template-columns:repeat(12,1fr);gap:4px;margin-top:18px}
+  .year div{text-align:center;font-size:.8rem;padding:10px 0;border-radius:8px;background:var(--leaf);color:var(--moss-dark);font-weight:700}
+  .year div.sleep{background:#3d4a5c;color:#dfe6f0}
+  .year div.maybe{background:#8f9bb0;color:#fff}
+  .legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:10px;color:var(--muted);font-size:.9rem}
+  .legend span::before{content:"";display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px;background:var(--c)}
+  @media(max-width:520px){.year{grid-template-columns:repeat(6,1fr)}}
+
+  footer{padding:36px 0 48px;color:var(--muted);font-size:.95rem}
+  footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top">🦔 Egels in de Zijdes</a>
+    <nav>
+      <a class="keep" href="#videos">Video's</a>
+      <a href="#helpen">Egels helpen</a>
+      <a class="keep" href="#nood">Egel in nood</a>
+      <a href="#over">Over ons</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <h1>Egels in de Zijdes</h1>
+        <p>Elke nacht scharrelen er egels door onze tuinen in Leiden. Met wildcamera's leggen we hun bezoekjes vast. Hier zie je de beelden, en lees je hoe jij jouw tuin egelvriendelijk maakt.</p>
+        <a class="btn" href="#videos">Bekijk de video's</a>
+      </div>
+      <svg viewBox="0 0 320 220" role="img" aria-label="Getekende egel tussen bladeren">
+        <ellipse cx="160" cy="196" rx="130" ry="14" fill="#e4dccd"/>
+        <g fill="#c98a4b"><path d="M60 170c-8-30 6-52 20-62l-6-14 16 8 2-18 12 14 8-18 8 16 12-16 4 18 14-12-2 18 16-8-6 16 16-2-10 14 16 4-14 10c10 12 14 22 12 32z"/></g>
+        <path d="M72 168c0-40 36-66 82-66s80 26 84 66z" fill="#6b4a2e"/>
+        <g stroke="#3f2b1a" stroke-width="3" stroke-linecap="round">
+          <path d="M92 130l-10-16M110 118l-6-18M130 110l-2-20M152 106l2-20M174 108l6-19M196 114l10-16M214 126l13-13M226 142l15-9M84 146l-14-10M100 146l-6-14M124 136l-2-15M148 130l2-16M172 132l5-15M196 138l8-13M216 150l12-9"/>
+        </g>
+        <path d="M232 168c8-18 22-30 40-32 14-2 24 6 26 14 1 6-4 9-10 9-14 2-30 6-40 12z" fill="#d9b48c"/>
+        <circle cx="297" cy="158" r="6" fill="#2b2620"/>
+        <circle cx="268" cy="148" r="4" fill="#2b2620"/><circle cx="269.5" cy="146.5" r="1.3" fill="#fff"/>
+        <path d="M110 168v12M200 168v12" stroke="#5a3d24" stroke-width="8" stroke-linecap="round"/>
+        <g fill="#7d9a5a"><path d="M20 196c10-26 34-30 46-26-8 18-26 28-46 26z"/><path d="M262 196c14-20 36-20 46-14-10 14-28 18-46 14z"/></g>
+        <g fill="#c8a24a"><path d="M40 190c4-12 16-14 22-12-4 9-12 13-22 12z"/></g>
+      </svg>
+    </div>
+  </div>
+
+  <section id="videos" class="alt">
+    <div class="wrap">
+      <h2>Video's uit de wijk</h2>
+      <p class="lead">Nieuwe beelden van onze wildcamera's verschijnen hier vanzelf. De nieuwste staan bovenaan.</p>
+      <div id="videoList" class="videos" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section id="helpen">
+    <div class="wrap">
+      <h2>Zo help je egels</h2>
+      <p class="lead">Een egel loopt in één nacht wel een paar kilometer en bezoekt tientallen tuinen. Kleine aanpassingen maken voor hem een groot verschil.</p>
+      <div class="tips">
+        <div class="tip"><div class="ic">🚪</div><h3>Een gat in de schutting</h3><p>Maak onderaan je schutting een opening van ongeveer 13 bij 13 cm, met gladde randen. Zo kunnen egels van tuin naar tuin.</p></div>
+        <div class="tip"><div class="ic">🍂</div><h3>Laat het een beetje rommelig</h3><p>Een hoop bladeren of een takkenril is een gratis schuilplek en trekt insecten aan, het natuurlijke voedsel van de egel.</p></div>
+        <div class="tip"><div class="ic">🏠</div><h3>Een egelhuis</h3><p>Zet een goed geventileerd egelhuis op een rustige, beschutte plek, uit de wind en niet in de volle zon. Vooral handig in een opgeruimde tuin.</p></div>
+        <div class="tip"><div class="ic">💧</div><h3>Water en bijvoeren</h3><p>Zet een ondiep schaaltje water neer. Bijvoeren kan met kattenbrokjes, kattenvoer met vlees of speciaal egelvoer.</p></div>
+        <div class="tip"><div class="ic">🌱</div><h3>Geen gif</h3><p>Gebruik geen slakkenkorrels of andere bestrijdingsmiddelen. Een gifvrije, groene tuin zit vol eten voor egels.</p></div>
+        <div class="tip"><div class="ic">🕳️</div><h3>Let op valkuilen</h3><p>Leg een plankje of steen in je vijver als uitstapje, en kijk onder takkenhopen voordat je gaat maaien of stoken.</p></div>
+      </div>
+      <div class="no"><strong>Niet doen:</strong> geef egels geen melk, brood of meelwormen. Daar worden ze ziek van.</div>
+    </div>
+  </section>
+
+  <section id="nood" class="alt">
+    <div class="wrap">
+      <div class="alert">
+        <div class="big">144</div>
+        <div>
+          <h2>Egel in nood?</h2>
+          <p>Egels zijn 's nachts actief. Zie je er overdag een rondlopen, of lijkt hij gewond, mager of ziek? Dan heeft hij waarschijnlijk hulp nodig.</p>
+          <p>Bel de dierenambulance of het landelijke nummer <strong>144</strong>. Zij kunnen de egel naar een egelopvang brengen. Een opvang bij jou in de buurt vind je via <a href="https://www.egelbescherming.nl" style="color:#fff">Egelbescherming Nederland</a>.</p>
+          <p>Let op: de egel is een beschermde soort. Vraag eerst advies voordat je hem oppakt.</p>
+        </div>
+      </div>
+
+      <h2 style="margin-top:48px">De egel door het jaar</h2>
+      <p class="lead" style="margin-bottom:0">Egels houden winterslaap, ongeveer van november tot maart. Hoe lang precies hangt af van het weer. Ook in die periode worden ze af en toe even wakker.</p>
+      <div class="year" aria-label="Jaarkalender winterslaap">
+        <div class="sleep">jan</div><div class="sleep">feb</div><div class="maybe">mrt</div><div class="maybe">apr</div>
+        <div>mei</div><div>jun</div><div>jul</div><div>aug</div><div>sep</div><div class="maybe">okt</div>
+        <div class="sleep">nov</div><div class="sleep">dec</div>
+      </div>
+      <div class="legend">
+        <span style="--c:#e3ead2">Actief</span><span style="--c:#8f9bb0">Begin of einde winterslaap</span><span style="--c:#3d4a5c">Winterslaap</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="over">
+    <div class="wrap">
+      <h2>Over ons</h2>
+      <p class="lead">Egels in de Zijdes is een initiatief van bewoners uit Leiden en de Werkgroep Egels. We willen meer buren enthousiast maken voor egels, en samen zorgen voor een groene, egelvriendelijke wijk. Doe je mee, of heb je mooie beelden uit je eigen tuin? Spreek ons gerust aan.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="yr"></span> Egels in de Zijdes, Leiden</span>
+    <span>Dit is een bewonersinitiatief, geen egelopvang.</span>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  const list = document.getElementById('videoList');
+  const fmt = d => new Date(d + 'T12:00:00').toLocaleDateString('nl-NL', {day:'numeric', month:'long', year:'numeric'});
+  function render(items){
+    if(!items.length){
+      list.innerHTML = '<div class="empty">Hier komen binnenkort de eerste egelvideo\'s. 🦔</div>';
+      return;
+    }
+    items.sort((a,b) => (b.date||'').localeCompare(a.date||''));
+    list.innerHTML = '';
+    for(const v of items){
+      const card = document.createElement('article');
+      card.className = 'vcard';
+      const vid = document.createElement('video');
+      vid.controls = true; vid.preload = 'metadata'; vid.playsInline = true;
+      vid.src = v.file; if(v.poster) vid.poster = v.poster;
+      const meta = document.createElement('div'); meta.className = 'meta';
+      const h = document.createElement('h3'); h.textContent = v.title || 'Egelbezoek';
+      const t = document.createElement('time'); t.dateTime = v.date; t.textContent = fmt(v.date);
+      meta.append(h, t); card.append(vid, meta); list.append(card);
+    }
+  }
+  const embedded = window.VIDEOS;
+  if(Array.isArray(embedded)) render(embedded);
+  else fetch('videos.json', {cache:'no-store'}).then(r => r.json()).then(render).catch(() => render([]));
+</script>
+</body>
+</html>
