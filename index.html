@@ -209,6 +209,18 @@
       const vid = document.createElement('video');
       vid.controls = true; vid.preload = 'metadata'; vid.playsInline = true;
       vid.src = v.file; if(v.poster) vid.poster = v.poster;
+      vid.muted = true; vid.loop = true;
+      let touched = false;
+      vid.addEventListener('mouseenter', () => { if(!touched) vid.play().catch(()=>{}); });
+      vid.addEventListener('mouseleave', () => { if(!touched) { vid.pause(); } });
+      vid.addEventListener('click', () => { touched = true; vid.muted = false; });
+      vid.addEventListener('volumechange', () => { if(!vid.muted) touched = true; });
+      if(window.matchMedia('(hover: none)').matches && 'IntersectionObserver' in window){
+        new IntersectionObserver(es => es.forEach(e => {
+          if(touched) return;
+          if(e.isIntersecting && e.intersectionRatio > .6) vid.play().catch(()=>{}); else vid.pause();
+        }), {threshold:[0,.6,1]}).observe(vid);
+      }
       const meta = document.createElement('div'); meta.className = 'meta';
       const h = document.createElement('h3'); h.textContent = v.title || 'Egelbezoek';
       const t = document.createElement('time'); t.dateTime = v.date; t.textContent = fmt(v.date);
