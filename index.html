@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Egels in de Zijdes</title>
 <meta name="description" content="Egels in de Zijdes, Leiden: video's van egels in onze tuinen en tips om egels te helpen.">
+<link rel="alternate" type="application/rss+xml" title="Egels in de Zijdes – nieuwe video's" href="feed.xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
@@ -48,6 +49,10 @@
   .vcard .meta{padding:12px 16px 16px}
   .vcard h3{font-size:1.1rem;margin:0 0 4px}
   .vcard time{color:var(--muted);font-size:.9rem}
+  .follow{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:-8px 0 26px}
+  .follow span{font-weight:700}
+  .pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--bg);color:var(--ink);padding:8px 14px;border-radius:999px;text-decoration:none;font-weight:600;font-size:.95rem}
+  .pill:hover{border-color:var(--moss);color:var(--moss-dark)}
   .empty{border:2px dashed var(--line);border-radius:16px;padding:40px;text-align:center;color:var(--muted)}
 
   .tips{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
@@ -106,6 +111,10 @@
     <div class="wrap">
       <h2>Video's uit de wijk</h2>
       <p class="lead">Nieuwe beelden van onze wildcamera's verschijnen hier vanzelf. De nieuwste staan bovenaan.</p>
+      <div class="follow" id="volg">
+        <span>🔔 Volg nieuwe video's:</span>
+        <a class="pill" href="feed.xml">RSS-feed</a>
+      </div>
       <div id="videoList" class="videos" aria-live="polite"></div>
     </div>
   </section>

@@ -67,6 +67,7 @@ def main():
     })
     INDEX.write_text(json.dumps(items, ensure_ascii=False, indent=2) + "\n")
     print(f"toegevoegd: {mp4.name} ({mp4.stat().st_size/1e6:.1f} MB)")
+    subprocess.run([sys.executable, str(ROOT / "scripts" / "make_feed.py")], check=True)
 
 
 if __name__ == "__main__":
