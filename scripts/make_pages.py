@@ -5,7 +5,7 @@ Deel je zo'n link in WhatsApp of Signal, dan verschijnt een voorbeeld met
 de poster van de video, de titel en een korte tekst. Wie erop tikt, ziet
 de video direct.
 """
-import json, pathlib, datetime
+import json, pathlib, datetime, subprocess
 from html import escape
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -67,17 +67,66 @@ def date_nl(d):
     return f"{dt.day} {MAANDEN[dt.month - 1]} {dt.year}"
 
 
+def duration(mp4):
+    try:
+        out = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration",
+                              "-of", "csv=p=0", str(mp4)], capture_output=True, text=True).stdout
+        sec = round(float(out.strip()))
+        return f"{sec // 60}:{sec % 60:02d}"
+    except Exception:
+        return ""
+
+
+def make_thumb(poster, mp4, dst):
+    """Poster met afspeelknop en videobalk, zodat het voorbeeld in WhatsApp op een video lijkt."""
+    try:
+        from PIL import Image, ImageDraw, ImageFont
+    except ImportError:
+        return False
+    im = Image.open(poster).convert("RGB")
+    w = 960
+    im = im.resize((w, round(im.height * w / im.width)))
+    W, H = im.size
+    ov = Image.new("RGBA", im.size, (0, 0, 0, 0))
+    d = ImageDraw.Draw(ov)
+    for y in range(H // 3):  # donkere strook onderaan
+        a = int(150 * y / (H // 3))
+        d.line([(0, H - H // 3 + y), (W, H - H // 3 + y)], fill=(0, 0, 0, a))
+    r = H // 7
+    cx, cy = W // 2, H // 2
+    d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=(0, 0, 0, 140), outline=(255, 255, 255, 230), width=max(3, r // 14))
+    t = r * 0.5
+    d.polygon([(cx - t * 0.7, cy - t), (cx - t * 0.7, cy + t), (cx + t, cy)], fill=(255, 255, 255, 240))
+    m = W // 30
+    bar_y = H - m
+    d.rounded_rectangle([m, bar_y - 4, W - m, bar_y + 2], radius=3, fill=(255, 255, 255, 110))
+    lbl = duration(mp4)
+    if lbl:
+        try:
+            f = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", H // 16)
+        except OSError:
+            f = ImageFont.load_default()
+        d.text((m, bar_y - 14), "\u25B6  " + lbl, font=f, fill=(255, 255, 255, 240), anchor="lb")
+    Image.alpha_composite(im.convert("RGBA"), ov).convert("RGB").save(dst, quality=82)
+    return True
+
+
 def main():
     items = json.loads((ROOT / "videos.json").read_text() or "[]")
     for v in items:
         mp4 = pathlib.Path(v["file"])
         page_rel = mp4.with_suffix(".html")
         poster = v.get("poster") or "og.jpg"
+        share_img = poster
+        if v.get("poster"):
+            thumb = mp4.with_name(mp4.stem + "-voorbeeld.jpg")
+            if make_thumb(ROOT / v["poster"], ROOT / mp4, ROOT / thumb):
+                share_img = thumb.as_posix()
         html = PAGE.format(
             title=escape(v["title"]),
             desc=escape(f"Nieuwe egelvideo uit de Merenwijk, {date_nl(v['date'])}. Tik om te kijken!"),
             page=BASE + page_rel.as_posix(),
-            poster=BASE + poster,
+            poster=BASE + share_img,
             video=BASE + mp4.as_posix(),
             video_rel=mp4.name,
             poster_rel=pathlib.Path(poster).name if v.get("poster") else "../og.jpg",
