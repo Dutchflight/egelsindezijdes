@@ -5,7 +5,8 @@ Gebruik:
   python3 scripts/add_video.py <bronbestand> --drive-id ID --date JJJJ-MM-DD [--title "Titel"]
 
 Comprimeert de video naar max. 720p H.264 (zonder geluid weg te halen),
-maakt een posterafbeelding en zet een regel in videos.json.
+maakt een posterafbeelding, zet een regel in videos.json en maakt
+feed.xml en de deelpagina videos/<naam>.html (met WhatsApp-voorbeeld).
 Slaat over als de drive-id al in videos.json staat.
 """
 import argparse, json, pathlib, re, subprocess, sys
@@ -68,6 +69,8 @@ def main():
     INDEX.write_text(json.dumps(items, ensure_ascii=False, indent=2) + "\n")
     print(f"toegevoegd: {mp4.name} ({mp4.stat().st_size/1e6:.1f} MB)")
     subprocess.run([sys.executable, str(ROOT / "scripts" / "make_feed.py")], check=True)
+    subprocess.run([sys.executable, str(ROOT / "scripts" / "make_pages.py")], check=True)
+    print(f"deellink: https://egelsindezijdes.nl/videos/{name}.html")
 
 
 if __name__ == "__main__":
